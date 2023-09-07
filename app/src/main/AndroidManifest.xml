@@ -31,14 +31,24 @@
         android:theme="@style/Theme.Absensi"
         tools:targetApi="31">
         <activity
+            android:name=".view.main.MainActivity"
+            android:exported="false"/>
+        <activity
             android:name=".view.absen.AbsenActivity"
             android:exported="false"/>
         <activity
             android:name=".view.history.HistoryActivity"
             android:exported="false"/>
+        <activity
+            android:name=".view.regis.RegisActivity"
+            android:exported="false"/>
 
         <activity
-            android:name=".view.main.MainActivity"
+            android:name=".view.navigasi.BottomNav"
+            android:exported="false"/>
+
+        <activity
+            android:name=".view.login.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

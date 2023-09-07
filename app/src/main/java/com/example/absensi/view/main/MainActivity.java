@@ -1,28 +1,55 @@
 package com.example.absensi.view.main;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.example.absensi.R;
+import com.example.absensi.fragment.HomeFragment;
+import com.example.absensi.fragment.LogoutFragment;
+import com.example.absensi.fragment.UserFragment;
+import com.example.absensi.session.SessionManager;
 import com.example.absensi.view.absen.AbsenActivity;
 import com.example.absensi.view.history.HistoryActivity;
+import com.example.absensi.view.login.LoginActivity;
+import com.example.absensi.view.navigasi.BottomNav;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements NavigationBarView.OnItemSelectedListener {
+    private SessionManager sessionManager;
     private String strTitle;
+
+    private BottomNavigationView bottomNavigationView;
+    private HomeFragment homeFragment=new HomeFragment();
+    private UserFragment userFragment=new UserFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setInitLayout();
+
+        sessionManager = new SessionManager(this);
+        if(!sessionManager.isLoggedIn()) {
+            Toast.makeText(this, "Anda Tidak Punya Session", Toast.LENGTH_SHORT).show();
+        }else{
+            setInitLayout();
+
+        }
+
+
+        bottomNavigationView=findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
     }
+
 
 
     private void setInitLayout() {
@@ -30,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         View cvAbsenMasuk = findViewById(R.id.cvAbsenMasuk);
         View cvAbsenKeluar = findViewById(R.id.cvAbsenKeluar);
         View cvHistory = findViewById(R.id.cvHistory);
-        ImageView imageLogout = findViewById(R.id.imageLogout);
 
         cvAbsenMasuk.setOnClickListener(view -> {
             strTitle = "Absen Masuk";
+
             Intent intent = new Intent(MainActivity.this, AbsenActivity.class);
             intent.putExtra("jenis_absen", 1);
             startActivity(intent);
@@ -52,18 +79,37 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(intent);
         });
+    }
 
-        imageLogout.setOnClickListener(view -> {
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setMessage("Yakin Anda ingin Logout?");
             builder.setCancelable(true);
             builder.setNegativeButton("Batal", (dialog, which) -> dialog.cancel());
             builder.setPositiveButton("Ya", (dialog, which) -> {
-              //  session.logoutUser();
                 finishAffinity();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-        });
+            return true;
+        } else if (itemId == R.id.home) {
+
+            return true;
+        } else if (itemId == R.id.profile) {
+            finishAffinity();
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        return false;
     }
 }

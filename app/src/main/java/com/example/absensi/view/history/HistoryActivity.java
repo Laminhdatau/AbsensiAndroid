@@ -1,5 +1,6 @@
 package com.example.absensi.view.history;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +18,8 @@ import com.example.absensi.adapter.AAbsen;
 import com.example.absensi.api.ApiServer;
 import com.example.absensi.database.Iabsen;
 import com.example.absensi.model.MAbsen;
+import com.example.absensi.view.absen.AbsenActivity;
+import com.example.absensi.view.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +31,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TextView tvNotFound;
+
+private Toolbar kembali;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,6 +81,12 @@ public class HistoryActivity extends AppCompatActivity {
                 Toast.makeText(HistoryActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 Log.e("HistoryActivity", errorMessage);
             }
+        });
+
+kembali =findViewById(R.id.kembali);
+        kembali.setOnClickListener(view -> {
+            Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
+            startActivity(intent);
         });
     }
 }
