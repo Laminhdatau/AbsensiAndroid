@@ -2,6 +2,7 @@ package com.example.absensi.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,20 +78,30 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MRegister> call, Response<MRegister> response) {
                 if (response.isSuccessful()) {
-                    sessionManager.createLoginSession(username);
-                    Toast.makeText(LoginActivity.this, "Selamat datang, "+ username, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    MRegister mRegister = response.body();
+                    Log.d("ISU","aku" +mRegister.getUser().getIdUser());
+
+                    // Simpan data sesi, termasuk id_user
+                    sessionManager.createLoginSession(username, mRegister.getUser().getIdUser());
+                    if (mRegister != null && mRegister.getMessage() != null) {
+                        String message = mRegister.getMessage();
+                        Toast.makeText(LoginActivity.this, message, Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, "Dialu Mohimelu", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     // Login gagal
-                    Toast.makeText(LoginActivity.this, "Login gagal", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Gagal Login", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<MRegister> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Gagal melakukan login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "Gagal Masuk", Toast.LENGTH_SHORT).show();
             }
         });
     }

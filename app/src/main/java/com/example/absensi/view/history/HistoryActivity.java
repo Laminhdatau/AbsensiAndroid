@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,7 +19,9 @@ import com.example.absensi.adapter.AAbsen;
 import com.example.absensi.api.ApiServer;
 import com.example.absensi.database.Iabsen;
 import com.example.absensi.model.MAbsen;
+import com.example.absensi.session.SessionManager;
 import com.example.absensi.view.absen.AbsenActivity;
+import com.example.absensi.view.login.LoginActivity;
 import com.example.absensi.view.main.MainActivity;
 
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 public class HistoryActivity extends AppCompatActivity {
-
+    private SessionManager sessionManager;
     private RecyclerView recyclerView;
     private TextView tvNotFound;
 
@@ -42,11 +45,15 @@ private Toolbar kembali;
         recyclerView = findViewById(R.id.rvHistory);
         tvNotFound = findViewById(R.id.tvNotFound);
 
-        // Inisialisasi Retrofit dan memanggil API
+
+        sessionManager = new SessionManager(this);
+        String id= sessionManager.ambilSesIdu();
+        Log.d("IDKU","MSG "+id);
+
         Retrofit retrofit = ApiServer.getClient();
         Iabsen iabsen = retrofit.create(Iabsen.class);
 
-        Call<List<MAbsen>> call = iabsen.getAbsen();
+        Call<List<MAbsen>> call = iabsen.getAbsen(id);
 
         call.enqueue(new Callback<List<MAbsen>>() {
             @Override
@@ -87,6 +94,29 @@ kembali =findViewById(R.id.kembali);
         kembali.setOnClickListener(view -> {
             Intent intent = new Intent(HistoryActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Yakin Anda ingin Logout?");
+        builder.setCancelable(true);
+        builder.setNegativeButton("Batal", (dialog, which) -> dialog.cancel());
+        builder.setPositiveButton("Ya", (dialog, which) -> {
+            // Inisialisasi SessionManager
+            SessionManager sessionManager = new SessionManager(HistoryActivity.this);
+
+            // Logout pengguna
+            sessionManager.logout();
+
+            Intent intent = new Intent(HistoryActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Tutup aktivitas history agar tidak bisa kembali ke sana
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

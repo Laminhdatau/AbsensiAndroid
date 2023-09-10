@@ -11,10 +11,10 @@ public interface Iauth {
     @POST("/register")
     Call<MRegister> registerUser(
             @Part("username") RequestBody username,
-            @Part("nama_lengkap") RequestBody nama_lengkap,
+            @Part("nama_lengkap") RequestBody namaNengkap,
             @Part("password") RequestBody password,
             @Part("nik") RequestBody nik,
-            @Part MultipartBody.Part user_image
+            @Part MultipartBody.Part userImage
     );
 
     @FormUrlEncoded

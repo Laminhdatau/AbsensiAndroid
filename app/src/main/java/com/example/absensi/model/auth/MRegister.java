@@ -1,49 +1,111 @@
 package com.example.absensi.model.auth;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class MRegister {
-    private String username;
-    private String nama_lengkap;
-    private String password;
-    private long nik;
-    private String user_image;
 
-    public String getUsername() {
-        return username;
+
+        @SerializedName("id_user")
+        @Expose
+        private String idUser;
+        @SerializedName("username")
+        @Expose
+        private String username;
+        @SerializedName("nama_lengkap")
+        @Expose
+        private String namaLengkap;
+        @SerializedName("password")
+        @Expose
+        private String password;
+        @SerializedName("nik")
+        @Expose
+        private String nik;
+        @SerializedName("user_image")
+        @Expose
+        private String userImage;
+
+    @SerializedName("user")
+    @Expose
+    private MRegister user;
+
+    public MRegister getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(MRegister user) {
+        this.user = user;
     }
 
-    public String getNama_lengkap() {
-        return nama_lengkap;
+    @SerializedName("message")
+    @Expose
+    private String message;
+    @SerializedName("status")
+    @Expose
+    private String status;
+
+    public String getMessage() {
+        return message;
     }
 
-    public void setNama_lengkap(String nama_lengkap) {
-        this.nama_lengkap = nama_lengkap;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getPassword() {
-        return password;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public long getNik() {
-        return nik;
+    public String getIdUser() {
+            return idUser;
+        }
+
+        public void setIdUser(String idUser) {
+            this.idUser = idUser;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+        public String getNamaLengkap() {
+            return namaLengkap;
+        }
+
+        public void setNamaLengkap(String namaLengkap) {
+            this.namaLengkap = namaLengkap;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        public String getNik() {
+            return nik;
+        }
+
+        public void setNik(String nik) {
+            this.nik = nik;
+        }
+
+        public String getUserImage() {
+            return userImage;
+        }
+
+        public void setUserImage(String userImage) {
+            this.userImage = userImage;
+        }
+
     }
 
-    public void setNik(long nik) {
-        this.nik = nik;
-    }
-
-    public String getUser_image() {
-        return user_image;
-    }
-
-    public void setUser_image(String user_image) {
-        this.user_image = user_image;
-    }
-}

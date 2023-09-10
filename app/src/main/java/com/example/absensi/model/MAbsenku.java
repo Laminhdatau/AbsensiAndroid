@@ -1,64 +1,92 @@
 package com.example.absensi.model;
 
+import android.provider.CallLog;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class MAbsenku {
-    String id_absen;
-    String id_user;
-    int id_lokasi;
-    int id_jenis_absen;
 
-    String time_absen;
-    String time_absen_makassar;
+    @SerializedName("id_user")
+    @Expose
+    private String idUser;
+    @SerializedName("id_jenis_absen")
+    @Expose
+    private Integer idJenisAbsen;
+    @SerializedName("id_lokasi")
+    @Expose
+    private String idLokasi;
+    @SerializedName("time_absen")
+    @Expose
+    private String timeAbsen;
 
-    public String getTime_absen() {
-        return time_absen;
-    }
-    public void setTime_absen(String time_absen) {
-        this.time_absen = time_absen;
-    }
+    @SerializedName("message")
+    @Expose
+    private String message;
 
+    @SerializedName("latitude")
+    @Expose
+    private double latitude;
 
-    public String getTime_absen_makassar() {
-        return time_absen_makassar;
-    }
+    @SerializedName("longitude")
+    @Expose
+    private double longitude;
 
-    public void setTime_absen_makassar(String time_absen_makassar) {
-        this.time_absen_makassar = time_absen_makassar;
-    }
-
-
-
-    public String getId_absen() {
-        return id_absen;
-    }
-
-    public void setId_absen(String id_absen) {
-        this.id_absen = id_absen;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public String getId_user() {
-        return id_user;
+    public void setLatitude(double latitde) {
+        this.latitude = latitde;
     }
 
-    public void setId_user(String id_user) {
-        this.id_user = id_user;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public int getId_lokasi() {
-        return id_lokasi;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
-    public void setId_lokasi(int id_lokasi) {
-        this.id_lokasi = id_lokasi;
+    public String getMessage() {
+        return message;
     }
 
-    public int getId_jenis_absen() {
-        return id_jenis_absen;
-    }
-
-    public void setId_jenis_absen(int id_jenis_absen) {
-        this.id_jenis_absen = id_jenis_absen;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
 
+    public String getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(String idUser) {
+        this.idUser = idUser;
+    }
+
+    public Integer getIdJenisAbsen() {
+        return idJenisAbsen;
+    }
+
+    public void setIdJenisAbsen(Integer idJenisAbsen) {
+        this.idJenisAbsen = idJenisAbsen;
+    }
+
+    public String getIdLokasi() {
+        return idLokasi;
+    }
+
+    public void setIdLokasi(String idLokasi) {
+        this.idLokasi = idLokasi;
+    }
+
+    public String getTimeAbsen() {
+        return timeAbsen;
+    }
+
+    public void setTimeAbsen(String timeAbsen) {
+        this.timeAbsen = timeAbsen;
+    }
 
 }

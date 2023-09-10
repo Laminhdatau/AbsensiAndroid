@@ -11,10 +11,12 @@ public class MAbsen {
     String nik;
 
     int id_jenis_Absen;
-    int id_lokasi;
+    String id_lokasi;
     String nama_lokasi;
     String latitude;
     String longitude;
+
+
 
 
     String jenis_absen;
@@ -22,6 +24,18 @@ public class MAbsen {
     String user_image;
 
     private Date time_absen_makassar;
+
+
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     // Tambahkan getter dan setter untuk time_absen
     public Date getTime_absen() {
         return time_absen_makassar;
@@ -84,11 +98,11 @@ public class MAbsen {
         this.id_jenis_Absen = id_jenis_Absen;
     }
 
-    public int getId_lokasi() {
+    public String getId_lokasi() {
         return id_lokasi;
     }
 
-    public void setId_lokasi(int id_lokasi) {
+    public void setId_lokasi(String id_lokasi) {
         this.id_lokasi = id_lokasi;
     }
 

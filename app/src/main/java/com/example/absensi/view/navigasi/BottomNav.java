@@ -13,12 +13,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.absensi.R;
-import com.example.absensi.fragment.HomeFragment;
-import com.example.absensi.fragment.UserFragment;
 import com.example.absensi.session.SessionManager;
 import com.example.absensi.view.history.HistoryActivity;
 import com.example.absensi.view.login.LoginActivity;
 import com.example.absensi.view.main.MainActivity;
+import com.example.absensi.view.profile.ProfileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNav extends AppCompatActivity {
@@ -53,7 +52,7 @@ public class BottomNav extends AppCompatActivity {
                     startActivity(intent);// Gantilah dengan fragment yang sesuai
                     return true;
                 } else if (itemId == R.id.profile) {
-                    Intent intent = new Intent(BottomNav.this, HistoryActivity.class);
+                    Intent intent = new Intent(BottomNav.this, ProfileActivity.class);
                     startActivity(intent);
                     return true;
                 }

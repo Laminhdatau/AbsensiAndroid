@@ -6,8 +6,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiServer {
-   // public static final String base_url="https://restnode.cyclic.app";
-    public static final String base_url="http://192.168.132.21:3000";
+  //  public static final String base_url="https://restnode.cyclic.app/";
+    public static final String base_url="http://192.168.44.51:3000/";
     private static Retrofit retrofit=null;
     public static Retrofit getClient(){
         if(retrofit==null){
